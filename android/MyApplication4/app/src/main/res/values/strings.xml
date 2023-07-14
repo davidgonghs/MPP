@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MyApplication4</string>
+    <string-array name="country">
+        <item>Malaysia</item>
+        <item>Singapore</item>
+        <item>China</item>
+    </string-array>
+    <integer name="age">20</integer>
+    <integer-array name="shirt_size">
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+    </integer-array>
+
+    <dimen name="padding">5dp</dimen>
+    <dimen name="margin">10dp</dimen>
+    <dimen name="text_size">24sp</dimen>
+</resources>

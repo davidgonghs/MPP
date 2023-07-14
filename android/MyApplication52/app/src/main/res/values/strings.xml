@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Activity Demo</string>
+    <string-array name="names">
+        <item>Mouse</item>
+        <item>Cow</item>
+        <item>Tiger</item>
+        <item>Bunny</item>
+        <item>Dragon</item>
+        <item>Snake</item>
+        <item>Horse</item>
+        <item>Sheep</item>
+        <item>Monkey</item>
+        <item>Roster</item>
+        <item>Dog</item>
+        <item>Boar</item>
+    </string-array>
+    <integer-array name="images">
+        <item>@drawable/mouse</item>
+        <item>@drawable/cow</item>
+        <item>@drawable/tiger</item>
+        <item>@drawable/bunny</item>
+        <item>@drawable/dragon</item>
+        <item>@drawable/snake</item>
+        <item>@drawable/horse</item>
+        <item>@drawable/sheep</item>
+        <item>@drawable/monkey</item>
+        <item>@drawable/roster</item>
+        <item>@drawable/dog</item>
+        <item>@drawable/boar</item>
+    </integer-array>
+</resources>

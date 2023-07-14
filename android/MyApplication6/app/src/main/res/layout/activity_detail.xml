@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+    <ImageView
+        android:id="@+id/ivImg"
+        android:layout_width="258dp"
+        android:layout_height="249dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/daTvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/ivImg"
+        app:layout_constraintStart_toStartOf="@+id/ivImg"
+        app:layout_constraintTop_toBottomOf="@+id/ivImg" />
+
+    <TextView
+        android:id="@+id/daTvContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/daTvName"
+        app:layout_constraintStart_toStartOf="@+id/daTvName"
+        app:layout_constraintTop_toBottomOf="@+id/daTvName" />
+
+    <TextView
+        android:id="@+id/daTvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/daTvContact"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/daTvContact"
+        app:layout_constraintTop_toBottomOf="@+id/daTvContact" />
+
+    <TextView
+        android:id="@+id/daTvGender"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/daTvEmail"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/daTvEmail"
+        app:layout_constraintTop_toBottomOf="@+id/daTvEmail" />
+
+    <TextView
+        android:id="@+id/daTvDob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/daTvGender"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="@+id/daTvGender"
+        app:layout_constraintTop_toBottomOf="@+id/daTvGender" />
+</androidx.constraintlayout.widget.ConstraintLayout>
