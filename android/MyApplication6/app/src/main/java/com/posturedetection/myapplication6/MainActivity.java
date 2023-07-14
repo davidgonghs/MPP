@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -15,12 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,9 +33,13 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnAdd;
 
-    EditText p_etName, p_etContact, p_etEmail;
-    Button p_btnSave;
-    CheckBox p_cbIsMale;
+    EditText aa_etName, aa_etContact, aa_etEmail;
+    Button aa_btnSave, aa_btnCancel;
+    CheckBox aa_cb_is_male;
+    DatePicker dp;
+    TimePicker tp;
+
+    Calendar calendar = Calendar.getInstance();
 
     MyAdapter adapter;
     int pos = -1;
@@ -47,10 +53,9 @@ public class MainActivity extends AppCompatActivity {
         contacts = globals.getContacts();
 
 
-
-        contacts.add(new Contact("David Gong Hongshen", "017-3599496", "davidgonghongshen@gmail.com", true,837190861L));
-        contacts.add(new Contact("Koong Kok Leong", "012-3456789", "kl.koong@firstcity.edu.my", true,963421261L));
-        contacts.add(new Contact("Winnie Gong", "012-3456789", "winniw@gmail.com", false,391885261L));
+        contacts.add(new Contact("David Gong Hongshen", "017-3599496", "davidgonghongshen@gmail.com", true, 837190861L));
+        contacts.add(new Contact("Koong Kok Leong", "012-3456789", "kl.koong@firstcity.edu.my", true, 963421261L));
+        contacts.add(new Contact("Winnie Gong", "012-3456789", "winniw@gmail.com", false, 391885261L));
 
         /**class 8 dialog*/
 //        btnAdd = findViewById(R.id.btnAdd);
@@ -98,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int menuItem = item.getItemId();
-        if (menuItem==11){
+        if (menuItem == 11) {
 //            if(pos!=-1){
 //                Intent intent = new Intent(MainActivity.this, AddActivity.class);
 //                intent.putExtra("pos", pos);
@@ -110,45 +115,74 @@ public class MainActivity extends AppCompatActivity {
 
             Contact c = contacts.get(pos);
 
-            dialog.setContentView(R.layout.profile);
+            dialog.setContentView(R.layout.activity_add);
             dialog.setTitle("Edit Contact");
-            p_btnSave = dialog.findViewById(R.id.p_btnSave);
-            p_etName = dialog.findViewById(R.id.p_etName);
-            p_etContact = dialog.findViewById(R.id.p_etContact);
-            p_etEmail = dialog.findViewById(R.id.p_etEmail);
-            p_cbIsMale = dialog.findViewById(R.id.p_cbIsMale);
 
-            p_etName.setText(c.getName());
-            p_etContact.setText(c.getContact());
-            p_etEmail.setText(c.getEmail());
-            p_cbIsMale.setChecked(c.isMale());
+            aa_btnSave = dialog.findViewById(R.id.aa_btnSave);
+            aa_btnCancel = dialog.findViewById(R.id.aa_btnCancel);
+            aa_etName = dialog.findViewById(R.id.aa_etName);
+            aa_etContact = dialog.findViewById(R.id.aa_etContact);
+            aa_etEmail = dialog.findViewById(R.id.aa_etEmail);
+            aa_cb_is_male = dialog.findViewById(R.id.aa_cb_is_male);
+
+            dp = dialog.findViewById(R.id.dpDate);
+            tp = dialog.findViewById(R.id.tpTime);
 
 
-            p_btnSave.setOnClickListener(new View.OnClickListener() {
+            aa_etName.setText(c.getName());
+            aa_etContact.setText(c.getContact());
+            aa_etEmail.setText(c.getEmail());
+            aa_cb_is_male.setChecked(c.isMale());
+            calendar.setTimeInMillis(c.getDob());
+            dp.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+
+//            p_btnSave = dialog.findViewById(R.id.p_btnSave);
+//            p_etName = dialog.findViewById(R.id.p_etName);
+//            p_etContact = dialog.findViewById(R.id.p_etContact);
+//            p_etEmail = dialog.findViewById(R.id.p_etEmail);
+//            p_cbIsMale = dialog.findViewById(R.id.p_cbIsMale);
+//
+//            p_etName.setText(c.getName());
+//            p_etContact.setText(c.getContact());
+//            p_etEmail.setText(c.getEmail());
+//            p_cbIsMale.setChecked(c.isMale());
+
+
+            aa_btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String name = p_etName.getText().toString();
-                    String contact = p_etContact.getText().toString();
-                    String email = p_etEmail.getText().toString();
-                    boolean isMale = p_cbIsMale.isChecked();
+                    String name = aa_etName.getText().toString();
+                    String contact = aa_etContact.getText().toString();
+                    String email = aa_etEmail.getText().toString();
+                    boolean isMale = aa_cb_is_male.isChecked();
 
 
+                    calendar.set(dp.getYear(), dp.getMonth(), dp.getDayOfMonth(), tp.getHour(), tp.getMinute(), 0);
+                    long timeInMillis = calendar.getTimeInMillis();
 
-                    Contact newContact = new Contact(name, contact, email, isMale);
+                    Contact newContact = new Contact(name, contact, email, isMale, timeInMillis);
                     contacts.set(pos, newContact);
                     adapter.notifyDataSetChanged();
                     dialog.dismiss();
                 }
             });
+            aa_btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
             dialog.show();
         }
-        if (menuItem==12){
+        if (menuItem == 12) {
             contacts.remove(pos);
             adapter.notifyDataSetChanged();
         }
 
-        if(menuItem==13){
-            Intent intent = new Intent(MainActivity.this, AddActivity.class);
+        if (menuItem == 13) {
+            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+            intent.putExtra("position", pos);
             startActivity(intent);
         }
 
@@ -160,19 +194,19 @@ public class MainActivity extends AppCompatActivity {
     /**
      * class 9 main option menu
      */
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main_menu,menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    //override onOptionsItemSelected
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        int menuItem = item.getItemId();
-//        if (menuItem==R.id.mm_add){
-//            //                Intent intent = new Intent(MainActivity.this, AddActivity.class);
-////                startActivity(intent);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    //override onOptionsItemSelected
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int menuItem = item.getItemId();
+        if (menuItem == R.id.mm_add) {
+            Intent intent = new Intent(MainActivity.this, AddActivity.class);
+            startActivity(intent);
 //            dialog = new Dialog(MainActivity.this);
 //            dialog.setContentView(R.layout.profile);
 //            p_btnSave = dialog.findViewById(R.id.p_btnSave);
@@ -205,35 +239,33 @@ public class MainActivity extends AppCompatActivity {
 //        if (menuItem==R.id.mm_about_company){
 //            Toast.makeText(this, "David's Company", Toast.LENGTH_SHORT).show();
 //        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-    //     MyAdapter class
-
-
-    class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-        @NonNull
-        @Override
-        public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.item_list, parent, false);
-
-            return new MyViewHolder(view);
         }
-
-        @Override
-        public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
-            holder.tvName.setText(contacts.get(position).getName());
-            holder.tvContact.setText(contacts.get(position).getContact());
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    //show context menu
-                    return false;
-                }
-            });
+            return super.onOptionsItemSelected(item);
         }
+        //     MyAdapter class
 
+
+        class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+            @NonNull
+            @Override
+            public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = getLayoutInflater().inflate(R.layout.item_list, parent, false);
+
+                return new MyViewHolder(view);
+            }
+
+            @Override
+            public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
+                holder.tvName.setText(contacts.get(position).getName());
+                holder.tvContact.setText(contacts.get(position).getContact());
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        //show context menu
+                        return false;
+                    }
+                });
+            }
 
 
 //        class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -279,10 +311,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-        @Override
-        public int getItemCount() {
-            return contacts.size();
-        }
+            @Override
+            public int getItemCount() {
+                return contacts.size();
+            }
 
+        }
     }
-}

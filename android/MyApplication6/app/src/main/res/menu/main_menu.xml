@@ -4,16 +4,4 @@
     <item
         android:id="@+id/mm_add"
         android:title="Add" />
-    <item
-        android:id="@+id/mm_about"
-        android:title="About" >
-        <menu >
-            <item
-                android:id="@+id/mm_about_develop"
-                android:title="Developer" />
-            <item
-                android:id="@+id/mm_about_company"
-                android:title="Company" />
-        </menu>
-    </item>
 </menu>

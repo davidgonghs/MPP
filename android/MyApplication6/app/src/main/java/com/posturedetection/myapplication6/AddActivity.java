@@ -58,6 +58,7 @@ public class AddActivity extends AppCompatActivity {
         });
 
         aa_btnCancel.setOnClickListener(v -> {
+
             finish();
         });
 
