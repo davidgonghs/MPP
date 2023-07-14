@@ -1,2 +1,4 @@
 
-android/*/.idea/
+android/*/.idea/*
+android/MyApplication6/.idea/misc.xml
+android/MyApplication6/.idea/gradle.xml
